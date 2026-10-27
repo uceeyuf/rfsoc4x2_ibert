@@ -9,7 +9,7 @@
 
 Bit-error-rate test and eye scans of the RFSoC 4x2 (XCZU48DR-FFVG1517-2-E) QSFP28 port: **four GTY lanes at 25.78125 Gb/s** (the 100GBASE-SR4 / CAUI-4 lane rate), PRBS7 .. PRBS31 from the transceivers' own generators and checkers, per-lane error counts read through a VIO, and **2-D eye scans of every receiver through In-System IBERT** in the Vivado hardware manager. JTAG only, no PS software.
 
-The test setup is a 100GBASE-SR4 QSFP28 optical module (Intel SPTSBP2CLCKV) in optical self-loopback: each lane's transmitter comes back on its own receiver. The GTs' near-end PMA loopback is selectable for a check without a module.
+The test setup is a 100GBASE-SR4 QSFP28 optical module (Intel SPTSBP2CLCKV) in optical self-loopback (an MPO loopback plug: TX lane l comes back on RX lane 3 - l). The GTs' near-end PMA loopback is selectable for a check without a module.
 
 　
 
@@ -102,7 +102,7 @@ BSD 3-Clause, Copyright (c) 2026 Yijie Yu. The GT wizard, In-System IBERT and VI
 
 RFSoC 4x2（XCZU48DR-FFVG1517-2-E）QSFP28 口的误码率测试和眼图：**4 路 GTY，每路 25.78125 Gb/s**（100GBASE-SR4 / CAUI-4 的单路速率），PRBS7 .. PRBS31 用收发器自带的发生器和校验器，每路误码计数经 VIO 读出；**每个接收端都能通过 In-System IBERT 在 Vivado 硬件管理器里扫二维眼图**。只用 JTAG，不需要 PS 软件。
 
-测试环境是 100GBASE-SR4 QSFP28 光模块（Intel SPTSBP2CLCKV）光自环：每一路的发送回到它自己的接收。也可以选 GT 的近端 PMA 回环，不插模块先自检。
+测试环境是 100GBASE-SR4 QSFP28 光模块（Intel SPTSBP2CLCKV）光自环（MPO 回环头：TX 第 l 路回到 RX 第 3 - l 路）。也可以选 GT 的近端 PMA 回环，不插模块先自检。
 
 　
 
