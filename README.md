@@ -31,8 +31,8 @@ Intel SPTSBP2CLCKV (100GBASE-SR4) with an MPO loopback plug, prebuilt bitstream,
 
 | Test | Lanes locked | Bits per lane | Errors | BER per lane |
 | :--- | :----------: | :-----------: | :----: | :----------: |
-| Optical loopback, PRBS31, 60 s | 4 / 4 | 1.55e12 | 0 | < 6.5e-13 |
-| GT near-end PMA loopback | 4 / 4 | – | 0 | – |
+| Optical loopback, PRBS31, 60 s | 4 / 4 | 1.550e12 | 0 | < 6.4e-13 |
+| GT near-end PMA loopback, PRBS31, 10 s | 4 / 4 | 2.614e11 | 0 | < 3.8e-12 |
 
 2-D eye scans of the four receivers (optical loopback): horizontal opening 41 / 45 / 43 / 45 taps, open area 9704 / 10144 / 9796 / 9844.
 
@@ -124,8 +124,8 @@ Intel SPTSBP2CLCKV（100GBASE-SR4）加 MPO 回环头，prebuilt 位流，Vivado
 
 | 测试 | 锁定的路数 | 每路比特数 | 误码 | 每路误码率 |
 | :--- | :--------: | :--------: | :--: | :--------: |
-| 光回环，PRBS31，60 秒 | 4 / 4 | 1.55e12 | 0 | < 6.5e-13 |
-| GT 近端 PMA 回环 | 4 / 4 | – | 0 | – |
+| 光回环，PRBS31，60 秒 | 4 / 4 | 1.550e12 | 0 | < 6.4e-13 |
+| GT 近端 PMA 回环，PRBS31，10 秒 | 4 / 4 | 2.614e11 | 0 | < 3.8e-12 |
 
 四个接收端的二维眼图（光回环）：水平张开 41 / 45 / 43 / 45 tap，open area 9704 / 10144 / 9796 / 9844。
 
