@@ -34,7 +34,7 @@ Intel SPTSBP2CLCKV (100GBASE-SR4) with an MPO loopback plug, prebuilt bitstream,
 | Optical loopback, PRBS31, 60 s | 4 / 4 | 1.550e12 | 0 | < 6.4e-13 |
 | GT near-end PMA loopback, PRBS31, 10 s | 4 / 4 | 2.614e11 | 0 | < 3.8e-12 |
 
-2-D eye scans of the four receivers (optical loopback, PRBS31, 1-tap steps, dwell BER 1e-7), the receivers switched to DFE in the hardware manager (`LOGIC.RXLPMEN_OVRD` 1, `LOGIC.RXLPMEN_OUT` 0, then an RX reset): horizontal opening 64.6 / 63.1 / 66.2 / 69.2 % UI, vertical 49.0 / 52.5 / 55.3 / 57.2 %, open area 3747 / 4349 / 4115 / 4428. (With the default LPM the module's signal exceeds the scan's vertical range: the eye is open over the whole range, horizontally 66 to 68 % UI, and its shape is not seen.) Data in `docs/eye_lane<l>.csv`; the picture from `scripts/plot_eye.py` shows -1 .. 1 UI, the scanned UI between the dashed lines repeated on each side:
+2-D eye scans of the four receivers (optical loopback, PRBS31, 1-tap steps, dwell BER 1e-7), the receivers switched to DFE in the hardware manager (`LOGIC.RXLPMEN_OVRD` 1, `LOGIC.RXLPMEN_OUT` 0, then an RX reset): horizontal opening 64.6 / 63.1 / 66.2 / 69.2 % UI, vertical 49.0 / 52.5 / 55.3 / 57.2 %, open area 3747 / 4349 / 4115 / 4428. (With the default LPM the module's signal exceeds the scan's vertical range: the eye is open over the whole range, horizontally 66 to 68 % UI, and its shape is not seen.) Data in `docs/eye_lane<l>.csv`, picture from `scripts/plot_eye.py`:
 
 ![eye scans](docs/eye_scans.png)
 
@@ -130,7 +130,7 @@ Intel SPTSBP2CLCKV（100GBASE-SR4）加 MPO 回环头，prebuilt 位流，Vivado
 | 光回环，PRBS31，60 秒 | 4 / 4 | 1.550e12 | 0 | < 6.4e-13 |
 | GT 近端 PMA 回环，PRBS31，10 秒 | 4 / 4 | 2.614e11 | 0 | < 3.8e-12 |
 
-四个接收端的二维眼图（光回环，PRBS31，1 tap 步进，dwell BER 1e-7），接收端在硬件管理器里切到 DFE（`LOGIC.RXLPMEN_OVRD` 1、`LOGIC.RXLPMEN_OUT` 0，再复位 RX）：水平张开 64.6 / 63.1 / 66.2 / 69.2 % UI，垂直 49.0 / 52.5 / 55.3 / 57.2 %，open area 3747 / 4349 / 4115 / 4428。（默认的 LPM 下模块的信号幅度超出扫描的垂直范围：整个范围内都张开，水平 66～68 % UI，看不出眼的形状。）数据在 `docs/eye_lane<l>.csv`；图由 `scripts/plot_eye.py` 生成，画 -1 .. 1 UI，虚线之间是实测的 1 UI，两侧为其周期延拓：
+四个接收端的二维眼图（光回环，PRBS31，1 tap 步进，dwell BER 1e-7），接收端在硬件管理器里切到 DFE（`LOGIC.RXLPMEN_OVRD` 1、`LOGIC.RXLPMEN_OUT` 0，再复位 RX）：水平张开 64.6 / 63.1 / 66.2 / 69.2 % UI，垂直 49.0 / 52.5 / 55.3 / 57.2 %，open area 3747 / 4349 / 4115 / 4428。（默认的 LPM 下模块的信号幅度超出扫描的垂直范围：整个范围内都张开，水平 66～68 % UI，看不出眼的形状。）数据在 `docs/eye_lane<l>.csv`，图由 `scripts/plot_eye.py` 生成：
 
 ![眼图](docs/eye_scans.png)
 
