@@ -34,7 +34,9 @@ Intel SPTSBP2CLCKV (100GBASE-SR4) with an MPO loopback plug, prebuilt bitstream,
 | Optical loopback, PRBS31, 60 s | 4 / 4 | 1.550e12 | 0 | < 6.4e-13 |
 | GT near-end PMA loopback, PRBS31, 10 s | 4 / 4 | 2.614e11 | 0 | < 3.8e-12 |
 
-2-D eye scans of the four receivers (optical loopback): horizontal opening 41 / 45 / 43 / 45 taps, open area 9704 / 10144 / 9796 / 9844.
+2-D eye scans of the four receivers (optical loopback, PRBS31, 1-tap steps, dwell BER 1e-7): horizontal opening 43 / 44 / 44 / 44 taps of 64 (66.2 / 67.7 / 67.7 / 67.7 % UI), vertically open over the whole scan range, open area 9644 / 9821 / 9926 / 9895. Data in `docs/eye_lane<l>.csv`, picture from `scripts/plot_eye.py`:
+
+![eye scans](docs/eye_scans.png)
 
 Lane mapping through the module and the loopback plug (`map`): **TX lane l comes back on RX lane 3 - l** (TX 0 -> RX 3, 1 -> 2, 2 -> 1, 3 -> 0); in the PMA loopback each lane comes back on itself. Every lane sends the same pattern, so each RX checker locks either way; for a protocol test over the same plug (e.g. [rfsoc4x2_aurora](https://github.com/uceeyuf/rfsoc4x2_aurora)) the lane order matters.
 
@@ -53,7 +55,7 @@ vivado -mode batch -source tests/ibert_test.tcl -tclargs 10 2             # GT n
 vivado -mode batch -source tests/ibert_test.tcl -tclargs 10 0 31 map      # ... and the TX -> RX lane mapping
 ```
 
-Arguments: seconds, loopback (0 through the module, 2 near-end PMA), PRBS (7, 9, 15, 23, 31), and the keywords `eye`, `map`, `noprog`. The script programs the FPGA, sets the pattern and the loopback, resets the transceivers, prints every second per lane the locked state, the checked rate, the errors and the BER, then forces one error per lane and checks that each lane counts it (the GTs' checkers are self-synchronizing: one forced error counts 2); with `map` it forces errors on one TX lane at a time and prints which RX lane counts them; with `eye` it writes `out/eye_lane<l>.csv`. The output is also in `out/ibert_test.txt`. In the Vivado GUI the same four channels appear under Serial I/O Links (In-System IBERT) for eye scans and analog settings.
+Arguments: seconds, loopback (0 through the module, 2 near-end PMA), PRBS (7, 9, 15, 23, 31), and the keywords `eye`, `map`, `noprog`. The script programs the FPGA, sets the pattern and the loopback, resets the transceivers, prints every second per lane the locked state, the checked rate, the errors and the BER, then forces one error per lane and checks that each lane counts it (the GTs' checkers are self-synchronizing: one forced error counts 2); with `map` it forces errors on one TX lane at a time and prints which RX lane counts them; with `eye` it writes `out/eye_lane<l>.csv` (`python3 scripts/plot_eye.py` draws them as `out/eye_scans.png`). The output is also in `out/ibert_test.txt`. In the Vivado GUI the same four channels appear under Serial I/O Links (In-System IBERT) for eye scans and analog settings.
 
 Build from source (creates `build/`, copies the result to `prebuilt/`):
 
@@ -67,9 +69,10 @@ vivado -mode batch -source scripts/program.tcl
 | `rtl/`         | `fpga.v` (top: clocks, transceivers, In-System IBERT, counters, VIO) |
 | `ip/`          | the GT wizard at 156.25 MHz, In-System IBERT, the VIO (Tcl) |
 | `constraints/` | pins and clocks |
-| `scripts/`     | `create_project.tcl`, `build.tcl`, `program.tcl` |
+| `scripts/`     | `create_project.tcl`, `build.tcl`, `program.tcl`, `plot_eye.py` |
 | `tests/`       | `ibert_test.tcl` |
 | `prebuilt/`    | `rfsoc4x2_ibert.bit`, `rfsoc4x2_ibert.ltx` |
+| `docs/`        | the eye scans of the optical loopback (`eye_lane<l>.csv`, `eye_scans.png`) |
 
 　
 
@@ -127,7 +130,9 @@ Intel SPTSBP2CLCKV（100GBASE-SR4）加 MPO 回环头，prebuilt 位流，Vivado
 | 光回环，PRBS31，60 秒 | 4 / 4 | 1.550e12 | 0 | < 6.4e-13 |
 | GT 近端 PMA 回环，PRBS31，10 秒 | 4 / 4 | 2.614e11 | 0 | < 3.8e-12 |
 
-四个接收端的二维眼图（光回环）：水平张开 41 / 45 / 43 / 45 tap，open area 9704 / 10144 / 9796 / 9844。
+四个接收端的二维眼图（光回环，PRBS31，1 tap 步进，dwell BER 1e-7）：水平张开 43 / 44 / 44 / 44 tap（共 64，即 66.2 / 67.7 / 67.7 / 67.7 % UI），垂直方向在整个扫描范围内张开，open area 9644 / 9821 / 9926 / 9895。数据在 `docs/eye_lane<l>.csv`，图由 `scripts/plot_eye.py` 生成：
+
+![眼图](docs/eye_scans.png)
 
 经过模块和回环头的 lane 映射（`map`）：**TX 第 l 路回到 RX 第 3 - l 路**（TX 0 -> RX 3、1 -> 2、2 -> 1、3 -> 0）；PMA 回环下每路回到自己。各路发同一个码型，所以每个 RX 校验器两种顺序都能锁定；在同一个回环头上跑协议（例如 [rfsoc4x2_aurora](https://github.com/uceeyuf/rfsoc4x2_aurora)）时，lane 顺序就有关系了。
 
@@ -146,7 +151,7 @@ vivado -mode batch -source tests/ibert_test.tcl -tclargs 10 2             # GT �
 vivado -mode batch -source tests/ibert_test.tcl -tclargs 10 0 31 map      # ……并打印 TX -> RX 的 lane 映射
 ```
 
-参数依次是：秒数、回环（0 经过模块，2 近端 PMA）、PRBS（7、9、15、23、31），以及关键字 `eye`、`map`、`noprog`。脚本下载 FPGA，设置码型和回环，复位收发器，每秒逐路打印锁定状态、校验速率、误码和误码率，最后每路注入一个错误并确认各自计到（GT 自带的校验器是自同步的：一个强制错误计 2）；加 `map` 时逐路单独注错，打印哪一路 RX 计到；加 `eye` 时写出 `out/eye_lane<l>.csv`。输出同时写到 `out/ibert_test.txt`。在 Vivado 图形界面里，同样的四个通道出现在 Serial I/O Links（In-System IBERT）下，可以扫眼图、调模拟参数。
+参数依次是：秒数、回环（0 经过模块，2 近端 PMA）、PRBS（7、9、15、23、31），以及关键字 `eye`、`map`、`noprog`。脚本下载 FPGA，设置码型和回环，复位收发器，每秒逐路打印锁定状态、校验速率、误码和误码率，最后每路注入一个错误并确认各自计到（GT 自带的校验器是自同步的：一个强制错误计 2）；加 `map` 时逐路单独注错，打印哪一路 RX 计到；加 `eye` 时写出 `out/eye_lane<l>.csv`（`python3 scripts/plot_eye.py` 把它们画成 `out/eye_scans.png`）。输出同时写到 `out/ibert_test.txt`。在 Vivado 图形界面里，同样的四个通道出现在 Serial I/O Links（In-System IBERT）下，可以扫眼图、调模拟参数。
 
 从源码构建（生成 `build/`，结果复制到 `prebuilt/`）：
 
@@ -160,9 +165,10 @@ vivado -mode batch -source scripts/program.tcl
 | `rtl/`         | `fpga.v`（顶层：时钟、收发器、In-System IBERT、计数器、VIO） |
 | `ip/`          | 156.25 MHz 的 GT wizard、In-System IBERT、VIO（Tcl） |
 | `constraints/` | 引脚与时钟 |
-| `scripts/`     | `create_project.tcl`、`build.tcl`、`program.tcl` |
+| `scripts/`     | `create_project.tcl`、`build.tcl`、`program.tcl`、`plot_eye.py` |
 | `tests/`       | `ibert_test.tcl` |
 | `prebuilt/`    | `rfsoc4x2_ibert.bit`、`rfsoc4x2_ibert.ltx` |
+| `docs/`        | 光回环的眼图（`eye_lane<l>.csv`、`eye_scans.png`） |
 
 　
 
